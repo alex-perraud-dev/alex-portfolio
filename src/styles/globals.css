@@ -99,9 +99,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+ml-2{
+  margin-left: 2rem;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
+

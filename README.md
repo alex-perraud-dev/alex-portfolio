@@ -1,38 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Un titre
+Une suite de card en mode carrousel
+une ligne horizontale
+Mes projets persos
+Une suite de card en mode carrousel avec modal qui floutte le bacjground quand tu cliques
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Autre pasge : ABOUT :
+Petite présentation dans une card avec une photo de moi 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+function BackdropExample() {
+const OverlayOne = () => (
+<ModalOverlay
+bg='blackAlpha.300'
+backdropFilter='blur(10px) hue-rotate(90deg)'
+/>
+)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+const OverlayTwo = () => (
+<ModalOverlay
+bg='none'
+backdropFilter='auto'
+backdropInvert='80%'
+backdropBlur='2px'
+/>
+)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+const { isOpen, onOpen, onClose } = useDisclosure()
+const [overlay, setOverlay] = React.useState(<OverlayOne />)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+return (
+<>
+<Button
+onClick={() => {
+setOverlay(<OverlayOne />)
+onOpen()
+}}
+>
+Use Overlay one
+</Button>
+<Button
+ml='4'
+onClick={() => {
+setOverlay(<OverlayTwo />)
+onOpen()
+}}
+>
+Use Overlay two
+</Button>
+<Modal isCentered isOpen={isOpen} onClose={onClose}>
+{overlay}
+<ModalContent>
+<ModalHeader>Modal Title</ModalHeader>
+<ModalCloseButton />
+<ModalBody>
+<Text>Custom backdrop filters!</Text>
+</ModalBody>
+<ModalFooter>
+<Button onClick={onClose}>Close</Button>
+</ModalFooter>
+</ModalContent>
+</Modal>
+</>
+)
+}
